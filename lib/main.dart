@@ -1,6 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -61,6 +67,26 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  String flavor = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getRemoteFlavor().then((value) {
+      setState(() {
+        flavor = value;
+      });
+    });
+  }
+
+  Future<String> getRemoteFlavor() async {
+    String remoteFlavor = "not found";
+    await FirebaseFirestore.instance.doc("config/1").get().then((value) {
+      remoteFlavor = value.data()?["env"] ?? '';
+    });
+    return remoteFlavor;
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -95,12 +121,8 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+              'Flavor: $flavor',
             ),
           ],
         ),

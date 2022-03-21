@@ -34,6 +34,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  firebase_core: ^1.13.1
+  cloud_firestore: ^3.1.10
 
 dev_dependencies:
   flutter_test:
@@ -101,13 +103,13 @@ flavorizr:
 
       android:
         applicationId: "com.sample.dev"
-      #        firebase:
-      #          config: ".firebase/dev/google-services.json"
+        firebase:
+          config: ".firebase/dev/google-services.json"
 
       ios:
         bundleId: "com.sample.dev"
-    #        firebase:
-    #          config: ".firebase/dev/google-services.json"
+        firebase:
+          config: ".firebase/dev/GoogleService-Info.plist"
 
     prod:
       app:
@@ -115,10 +117,10 @@ flavorizr:
 
       android:
         applicationId: "com.sample.prod"
-      #        firebase:
-      #          config: ".firebase/prod/google-services.json"
+        firebase:
+          config: ".firebase/prod/google-services.json"
 
       ios:
         bundleId: "com.sample.prod"
-#        firebase:
-#          config: ".firebase/prod/google-services.json"
+        firebase:
+          config: ".firebase/prod/GoogleService-Info.plist"
